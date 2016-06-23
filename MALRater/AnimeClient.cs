@@ -108,8 +108,11 @@ namespace MALRater
 
         void FindUnrated()
         {
-            UnRated = new Stack<MalAnime>(MALList.Anime.Where(a => Ratings.Rated.All(ar => ar.Id != a.SeriesAnimedbId) &&
-                                                                   Ratings.DontRate.All(ar => ar.Id != a.SeriesAnimedbId)));
+            UnRated = new Stack<MalAnime>(MALList.Anime
+                .Where(a => a.MyStatus != "Watching" && 
+                            a.MyStatus != "Plan to Watch" &&
+                            Ratings.Rated.All(ar => ar.Id != a.SeriesAnimedbId) &&
+                            Ratings.DontRate.All(ar => ar.Id != a.SeriesAnimedbId)));
         }
     }
 }

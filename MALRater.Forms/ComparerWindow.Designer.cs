@@ -78,10 +78,9 @@
             // 
             // compLabel
             // 
-            this.compLabel.AutoSize = true;
             this.compLabel.Location = new System.Drawing.Point(240, 8);
             this.compLabel.Name = "compLabel";
-            this.compLabel.Size = new System.Drawing.Size(59, 13);
+            this.compLabel.Size = new System.Drawing.Size(225, 13);
             this.compLabel.TabIndex = 4;
             this.compLabel.Text = "compLabel";
             // 

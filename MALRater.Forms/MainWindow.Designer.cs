@@ -68,7 +68,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(671, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1098, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip";
             // 
@@ -203,23 +203,23 @@
             this.ratedListBox.FormattingEnabled = true;
             this.ratedListBox.Location = new System.Drawing.Point(12, 46);
             this.ratedListBox.Name = "ratedListBox";
-            this.ratedListBox.Size = new System.Drawing.Size(120, 290);
+            this.ratedListBox.Size = new System.Drawing.Size(220, 355);
             this.ratedListBox.TabIndex = 1;
             // 
             // dontrateListBox
             // 
             this.dontrateListBox.FormattingEnabled = true;
-            this.dontrateListBox.Location = new System.Drawing.Point(138, 46);
+            this.dontrateListBox.Location = new System.Drawing.Point(238, 46);
             this.dontrateListBox.Name = "dontrateListBox";
-            this.dontrateListBox.Size = new System.Drawing.Size(120, 290);
+            this.dontrateListBox.Size = new System.Drawing.Size(220, 355);
             this.dontrateListBox.TabIndex = 2;
             // 
             // unratedListBox
             // 
             this.unratedListBox.FormattingEnabled = true;
-            this.unratedListBox.Location = new System.Drawing.Point(264, 46);
+            this.unratedListBox.Location = new System.Drawing.Point(464, 45);
             this.unratedListBox.Name = "unratedListBox";
-            this.unratedListBox.Size = new System.Drawing.Size(120, 290);
+            this.unratedListBox.Size = new System.Drawing.Size(220, 355);
             this.unratedListBox.TabIndex = 4;
             // 
             // label1
@@ -234,7 +234,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(135, 30);
+            this.label2.Location = new System.Drawing.Point(238, 30);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 13);
             this.label2.TabIndex = 6;
@@ -243,7 +243,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(387, 30);
+            this.label3.Location = new System.Drawing.Point(690, 30);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 7;
@@ -252,7 +252,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(261, 30);
+            this.label4.Location = new System.Drawing.Point(464, 30);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(45, 13);
             this.label4.TabIndex = 8;
@@ -264,9 +264,9 @@
             this.title,
             this.score});
             this.malListView.GridLines = true;
-            this.malListView.Location = new System.Drawing.Point(390, 46);
+            this.malListView.Location = new System.Drawing.Point(690, 45);
             this.malListView.Name = "malListView";
-            this.malListView.Size = new System.Drawing.Size(257, 289);
+            this.malListView.Size = new System.Drawing.Size(257, 355);
             this.malListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.malListView.TabIndex = 9;
             this.malListView.UseCompatibleStateImageBehavior = false;
@@ -291,7 +291,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(671, 432);
+            this.ClientSize = new System.Drawing.Size(1098, 459);
             this.Controls.Add(this.malListView);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
