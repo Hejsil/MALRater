@@ -7,21 +7,54 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MALRater.Forms.MainWindow;
 
 namespace MALRater.Forms
 {
     public partial class LoginWindow : Form
     {
-        LoginUserControl loginUserControl = new LoginUserControl();
+
+        string username => usernameBox.Text;
+        string password => passwordBox.Text;
 
         public LoginWindow()
         {
             InitializeComponent();
-            Controls.Add(loginUserControl);
-            loginUserControl.Location = new Point(12, 12);
-            ClientSize = new Size(
-                 loginUserControl.Size.Width + loginUserControl.Location.X * 2,
-                 loginUserControl.Size.Height + loginUserControl.Location.Y * 2);
+        }
+
+        void loginButton_Click_1(object sender, EventArgs e)
+        {
+            Login();
+        }
+
+        void Enter_Pressed(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+                Login();
+        }
+
+        void Login()
+        {
+            UseWaitCursor = true;
+            loginButton.Enabled = false;
+            passwordBox.ReadOnly = true;
+            usernameBox.ReadOnly = true;
+
+            try
+            {
+                Client.MALLogin(username, password);
+                DialogResult = DialogResult.OK;
+                Close();
+            }
+            catch (Exception)
+            {
+                UseWaitCursor = false;
+                loginButton.Enabled = true;
+                passwordBox.ReadOnly = false;
+                usernameBox.ReadOnly = false;
+
+                MessageBox.Show("Login failed!");
+            }
         }
     }
 }

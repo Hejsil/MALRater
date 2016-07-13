@@ -12,18 +12,18 @@ namespace MALRater
     public class AnimeRater
     {
         public AnimeClient Client { get; }
-        public AnimeEntry CurrentlyRating { get; private set; }
-        public AnimeEntry ComparedTo { get; private set; }
+        public AnimeWrapper CurrentlyRating { get; private set; }
+        public AnimeWrapper ComparedTo { get; private set; }
         public int ComparedToIndex { get; private set; }
         public int StartIndex { get; private set; }
         public int EndIndex { get; private set; }
         public bool IsDone { get; private set; }
 
-        List<AnimeEntry> Rated { get { return Client.Ratings.Rated; } }
-        List<AnimeEntry> DontRate { get { return Client.Ratings.DontRate; } }
-        Stack<MalAnime> UnRated { get { return Client.UnRated; } }
-        List<MalAnime> MALAnimes { get { return Client.MALList.Anime; } }
-        SearchMethods Search { get { return Client.Search; } } 
+        List<AnimeWrapper> Rated => Client.Ratings.Rated;
+        List<AnimeWrapper> DontRate => Client.Ratings.DontRate;
+        Stack<MalAnime> UnRated => Client.UnRated;
+        List<MalAnime> MALAnimes => Client.MALList.Anime;
+        SearchMethods Search => Client.Search;
 
         public AnimeRater(AnimeClient client)
         {
@@ -92,11 +92,11 @@ namespace MALRater
                 IsDone = true;
                 return;
             }
-            
+
             var entry = UnRated.Peek();
-            CurrentlyRating = Search
+            CurrentlyRating = new AnimeWrapper(Search
                 .SearchAnimeDeserialized(entry.SeriesTitle)
-                .Entries.First(a => a.Id == entry.SeriesAnimedbId);
+                .Entries.First(a => a.Id == entry.SeriesAnimedbId));
         }
 
         void GetNextCompareTo()

@@ -6,6 +6,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MALRater.Data;
+using MyAnimeListSharp.Auth;
+using MyAnimeListSharp.Enums;
+using MyAnimeListSharp.Facade;
 
 namespace MALRater
 {

@@ -61,12 +61,6 @@
     <Compile Include="ComparerWindow.Designer.cs">
       <DependentUpon>ComparerWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="LoginUserControl.Designer.cs">
-      <DependentUpon>LoginUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoginWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,9 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ComparerWindow.resx">
       <DependentUpon>ComparerWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoginUserControl.resx">
-      <DependentUpon>LoginUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginWindow.resx">
       <DependentUpon>LoginWindow.cs</DependentUpon>

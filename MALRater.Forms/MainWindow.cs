@@ -14,7 +14,6 @@ namespace MALRater.Forms
     public partial class MainWindow : Form
     {
         string currentPath;
-        bool unsavedChanges;
 
         public static AnimeClient Client { get; set; }
             = new AnimeClient();
@@ -32,25 +31,25 @@ namespace MALRater.Forms
 
             if (login.ShowDialog() != DialogResult.OK)
                 Close();
+            
+            UpdateAll();
         }
 
         void newToolStrip_Click(object sender, EventArgs e)
         {
             Client.Ratings = new AnimeClient.AnimeRatings();
-            unsavedChanges = true;
         }
 
         void openToolStrip_Click(object sender, EventArgs e)
         {
             try
             {
-                if (openFileDialog1.ShowDialog() != DialogResult.OK)
+                if (openRatingsDialog.ShowDialog() != DialogResult.OK)
                     return;
 
-                Client.LoadRatings(openFileDialog1.FileName);
-                currentPath = openFileDialog1.FileName;
+                Client.LoadRatings(openRatingsDialog.FileName);
+                currentPath = openRatingsDialog.FileName;
                 UpdateAll();
-                unsavedChanges = true;
             }
             catch (Exception ex)
             {
@@ -83,12 +82,11 @@ namespace MALRater.Forms
         {
             try
             {
-                if (saveFileDialog1.ShowDialog() != DialogResult.OK)
+                if (saveRatingsDialog.ShowDialog() != DialogResult.OK)
                     return;
 
-                Client.SaveRatings(saveFileDialog1.FileName);
-                currentPath = saveFileDialog1.FileName;
-                unsavedChanges = false;
+                Client.SaveRatings(saveRatingsDialog.FileName);
+                currentPath = saveRatingsDialog.FileName;
             }
             catch (Exception ex)
             {
@@ -96,54 +94,6 @@ namespace MALRater.Forms
             }
 
             
-        }
-
-        void importMALToolStrip_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (openFileDialog1.ShowDialog() != DialogResult.OK)
-                    return;
-
-                Client.LoadList(openFileDialog1.FileName);
-
-                if (Client.MALList == null)
-                    return;
-
-                exportMALToolStrip.Enabled = true;
-                recalcScoreToolStrip.Enabled = true;
-                rateUnratedToolStrip.Enabled = true;
-
-                malListView.Items.Clear();
-                foreach (var anime in Client.MALList.Anime)
-                {
-                    malListView.Items.Add(anime.SeriesTitle)
-                        .SubItems.Add(anime.MyScore.ToString());
-                }
-
-                UpdateUnrated();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            
-        }
-
-        void exportMALToolStrip_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    Client.SaveList(saveFileDialog1.FileName);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         void recalcScoreToolStrip_Click(object sender, EventArgs e)
@@ -151,6 +101,11 @@ namespace MALRater.Forms
             try
             {
                 Client.GiveScores();
+                malListView.Items.Clear();
+                foreach (var anime in Client.MALList.Anime)
+                {
+                    malListView.Items.Add(anime.SeriesTitle).SubItems.Add(anime.MyScore.ToString());
+                }
             }
             catch (Exception ex)
             {
@@ -172,7 +127,6 @@ namespace MALRater.Forms
 
                 Client.GiveScores();
                 UpdateAll();
-                unsavedChanges = true;
             }
             catch (Exception ex)
             {
@@ -185,8 +139,26 @@ namespace MALRater.Forms
 
         }
 
+        void myAnimeListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (importMalDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            Client.LoadList(importMalDialog.FileName);
+            UpdateAll();
+        }
+
         void UpdateAll()
         {
+            if (Client.MALList?.Anime != null)
+            {
+                malListView.Items.Clear();
+                foreach (var anime in Client.MALList.Anime)
+                {
+                    malListView.Items.Add(anime.SeriesTitle).SubItems.Add(anime.MyScore.ToString());
+                }
+            }
+
             ratedListBox.Items.Clear();
             foreach (var anime in Client.Ratings.Rated)
             {

@@ -36,10 +36,8 @@
             this.saveToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.ratingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importMALToolStrip = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportMALToolStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.myAnimeListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recalcScoreToolStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.rateUnratedToolStrip = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,8 +53,9 @@
             this.malListView = new System.Windows.Forms.ListView();
             this.title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.score = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openRatingsDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveRatingsDialog = new System.Windows.Forms.SaveFileDialog();
+            this.importMalDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,8 +80,7 @@
             this.saveToolStrip,
             this.saveAsToolStrip,
             this.toolStripSeparator2,
-            this.ratingsToolStripMenuItem,
-            this.exportToolStripMenuItem});
+            this.importToolStripMenuItem1});
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.importToolStripMenuItem.Text = "File";
@@ -127,36 +125,20 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(152, 6);
             // 
-            // ratingsToolStripMenuItem
+            // importToolStripMenuItem1
             // 
-            this.ratingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importMALToolStrip});
-            this.ratingsToolStripMenuItem.Name = "ratingsToolStripMenuItem";
-            this.ratingsToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.ratingsToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.myAnimeListToolStripMenuItem});
+            this.importToolStripMenuItem1.Name = "importToolStripMenuItem1";
+            this.importToolStripMenuItem1.Size = new System.Drawing.Size(155, 22);
+            this.importToolStripMenuItem1.Text = "Import";
             // 
-            // importMALToolStrip
+            // myAnimeListToolStripMenuItem
             // 
-            this.importMALToolStrip.Name = "importMALToolStrip";
-            this.importMALToolStrip.Size = new System.Drawing.Size(159, 22);
-            this.importMALToolStrip.Text = "My Anime List...";
-            this.importMALToolStrip.Click += new System.EventHandler(this.importMALToolStrip_Click);
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportMALToolStrip});
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            // 
-            // exportMALToolStrip
-            // 
-            this.exportMALToolStrip.Enabled = false;
-            this.exportMALToolStrip.Name = "exportMALToolStrip";
-            this.exportMALToolStrip.Size = new System.Drawing.Size(159, 22);
-            this.exportMALToolStrip.Text = "My Anime List...";
-            this.exportMALToolStrip.Click += new System.EventHandler(this.exportMALToolStrip_Click);
+            this.myAnimeListToolStripMenuItem.Name = "myAnimeListToolStripMenuItem";
+            this.myAnimeListToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.myAnimeListToolStripMenuItem.Text = "My Anime List";
+            this.myAnimeListToolStripMenuItem.Click += new System.EventHandler(this.myAnimeListToolStripMenuItem_Click);
             // 
             // rateToolStripMenuItem
             // 
@@ -169,7 +151,6 @@
             // 
             // recalcScoreToolStrip
             // 
-            this.recalcScoreToolStrip.Enabled = false;
             this.recalcScoreToolStrip.Name = "recalcScoreToolStrip";
             this.recalcScoreToolStrip.Size = new System.Drawing.Size(194, 22);
             this.recalcScoreToolStrip.Text = "Recalculate Scores";
@@ -177,7 +158,6 @@
             // 
             // rateUnratedToolStrip
             // 
-            this.rateUnratedToolStrip.Enabled = false;
             this.rateUnratedToolStrip.Name = "rateUnratedToolStrip";
             this.rateUnratedToolStrip.Size = new System.Drawing.Size(194, 22);
             this.rateUnratedToolStrip.Text = "Rate Unrated Animes...";
@@ -281,9 +261,20 @@
             // 
             this.score.Text = "Score";
             // 
-            // openFileDialog1
+            // openRatingsDialog
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openRatingsDialog.DefaultExt = "json";
+            this.openRatingsDialog.Filter = "Json files|*.json|All files|*.*";
+            // 
+            // saveRatingsDialog
+            // 
+            this.saveRatingsDialog.DefaultExt = "json";
+            this.saveRatingsDialog.Filter = "Json file|*.json|All files|*.*";
+            // 
+            // importMalDialog
+            // 
+            this.importMalDialog.DefaultExt = "xml";
+            this.importMalDialog.Filter = "Xml files|*.xml|All files|*.*";
             // 
             // MainWindow
             // 
@@ -305,7 +296,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Anime Rater";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -326,7 +317,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ratingsToolStripMenuItem;
         private System.Windows.Forms.ListView malListView;
         private System.Windows.Forms.ToolStripMenuItem rateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recalcScoreToolStrip;
@@ -338,12 +328,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStrip;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStrip;
+        private System.Windows.Forms.OpenFileDialog openRatingsDialog;
+        private System.Windows.Forms.SaveFileDialog saveRatingsDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem importMALToolStrip;
-        private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportMALToolStrip;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem myAnimeListToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog importMalDialog;
     }
 }
 
