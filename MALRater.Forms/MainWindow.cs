@@ -16,7 +16,6 @@ namespace MALRater.Forms
         string currentPath;
 
         public static AnimeClient Client { get; set; }
-            = new AnimeClient();
 
         public MainWindow()
         {
@@ -31,8 +30,8 @@ namespace MALRater.Forms
 
             if (login.ShowDialog() != DialogResult.OK)
                 Close();
-            
-            UpdateAll();
+            else
+                UpdateAll();
         }
 
         void newToolStrip_Click(object sender, EventArgs e)
@@ -102,7 +101,7 @@ namespace MALRater.Forms
             {
                 Client.GiveScores();
                 malListView.Items.Clear();
-                foreach (var anime in Client.MALList.Anime)
+                foreach (var anime in Client.MyAnimeList.Anime)
                 {
                     malListView.Items.Add(anime.SeriesTitle).SubItems.Add(anime.MyScore.ToString());
                 }
@@ -150,10 +149,10 @@ namespace MALRater.Forms
 
         void UpdateAll()
         {
-            if (Client.MALList?.Anime != null)
+            if (Client.MyAnimeList?.Anime != null)
             {
                 malListView.Items.Clear();
-                foreach (var anime in Client.MALList.Anime)
+                foreach (var anime in Client.MyAnimeList.Anime)
                 {
                     malListView.Items.Add(anime.SeriesTitle).SubItems.Add(anime.MyScore.ToString());
                 }

@@ -12,18 +12,18 @@ namespace MALRater
     public class AnimeRater
     {
         public AnimeClient Client { get; }
-        public AnimeWrapper CurrentlyRating { get; private set; }
-        public AnimeWrapper ComparedTo { get; private set; }
+        public AnimeEntry CurrentlyRating { get; private set; }
+        public AnimeEntry ComparedTo { get; private set; }
         public int ComparedToIndex { get; private set; }
         public int StartIndex { get; private set; }
         public int EndIndex { get; private set; }
         public bool IsDone { get; private set; }
 
-        List<AnimeWrapper> Rated => Client.Ratings.Rated;
-        List<AnimeWrapper> DontRate => Client.Ratings.DontRate;
+        List<AnimeEntry> Rated => Client.Ratings.Rated;
+        List<AnimeEntry> DontRate => Client.Ratings.DontRate;
         Stack<MalAnime> UnRated => Client.UnRated;
-        List<MalAnime> MALAnimes => Client.MALList.Anime;
-        SearchMethods Search => Client.Search;
+        List<MalAnime> MALAnimes => Client.MyAnimeList.Anime;
+        SearchMethods Search => Client.SearchMethods;
 
         public AnimeRater(AnimeClient client)
         {
@@ -64,8 +64,6 @@ namespace MALRater
                 case Choice.Stop:
                     IsDone = true;
                     break;
-                default:
-                    break;
             }
         }
 
@@ -94,9 +92,9 @@ namespace MALRater
             }
 
             var entry = UnRated.Peek();
-            CurrentlyRating = new AnimeWrapper(Search
+            CurrentlyRating = Search
                 .SearchAnimeDeserialized(entry.SeriesTitle)
-                .Entries.First(a => a.Id == entry.SeriesAnimedbId));
+                .Entries.First(a => a.Id == entry.SeriesAnimedbId);
         }
 
         void GetNextCompareTo()

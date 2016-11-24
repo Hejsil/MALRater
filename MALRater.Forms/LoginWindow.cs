@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static MALRater.Forms.MainWindow;
 
 namespace MALRater.Forms
 {
     public partial class LoginWindow : Form
     {
-
         string username => usernameBox.Text;
         string password => passwordBox.Text;
 
@@ -42,7 +40,7 @@ namespace MALRater.Forms
 
             try
             {
-                Client.MALLogin(username, password);
+                MainWindow.Client = new AnimeClient(username, password);
                 DialogResult = DialogResult.OK;
                 Close();
             }

@@ -22,27 +22,24 @@ namespace MALRater
     {
         public class AnimeRatings
         {
-            public List<AnimeWrapper> Rated { get; set; } 
-                = new List<AnimeWrapper>();
-            public List<AnimeWrapper> DontRate { get; set; } 
-                = new List<AnimeWrapper>();
+            public List<AnimeEntry> Rated { get; set; } 
+                = new List<AnimeEntry>();
+            public List<AnimeEntry> DontRate { get; set; } 
+                = new List<AnimeEntry>();
         }
 
-        public AnimeRatings Ratings { get; set; }
-            = new AnimeRatings();
-        public MyAnimeList MALList { get; set; }
-        public Stack<MalAnime> UnRated { get; set; }
-            = new Stack<MalAnime>();
-        public SearchMethods Search { get; set; }
-        public AnimeListMethods AniList { get; set; }
-        public string UserName { get; set; }
+        public AnimeListMethods AnimeListMethods { get; }
+        public SearchMethods SearchMethods { get; set; }
 
-        public void MALLogin(string username, string password)
+        public AnimeRatings Ratings { get; set; } = new AnimeRatings();
+        public Stack<MalAnime> UnRated { get; set; } = new Stack<MalAnime>();
+        public MyAnimeList MyAnimeList { get; private set; }
+
+        public AnimeClient(string username, string password)
         {
-            UserName = username;
             var credentials = new CredentialContext { UserName = username, Password = password };
-            Search = new SearchMethods(credentials);
-            AniList = new AnimeListMethods(credentials);
+            SearchMethods = new SearchMethods(credentials);
+            AnimeListMethods = new AnimeListMethods(credentials);
             new AccountMethods(credentials).VerifyCredentials();
         }
 
@@ -52,7 +49,7 @@ namespace MALRater
 
             using (var stream = new FileStream(path, FileMode.Open))
             {
-                MALList = (MyAnimeList)serializer.Deserialize(stream);
+                MyAnimeList = (MyAnimeList)serializer.Deserialize(stream);
             }
 
             FindUnrated();
@@ -64,7 +61,7 @@ namespace MALRater
             if (Ratings == null)
                 Ratings = new AnimeRatings();
 
-            if (MALList != null)
+            if (MyAnimeList != null)
                 FindUnrated();
         }
 
@@ -75,7 +72,7 @@ namespace MALRater
 
         public AnimeRater GetRater()
         {
-            if (MALList == null || Ratings == null)
+            if (MyAnimeList == null || Ratings == null)
                 return null;
 
             return new AnimeRater(this);
@@ -85,7 +82,7 @@ namespace MALRater
         {
             var rated = Ratings.Rated;
             var unrated = Ratings.DontRate;
-            var malanimes = MALList.Anime;
+            var malanimes = MyAnimeList.Anime;
 
             for (var i = 0; i < rated.Count; i++)
             {
@@ -97,7 +94,7 @@ namespace MALRater
 
                 if (score != anime.MyScore)
                 {
-                    AniList.UpdateAnime(anime.SeriesAnimedbId, new AnimeValues
+                    AnimeListMethods.UpdateAnime(anime.SeriesAnimedbId, new AnimeValues
                     {
                         AnimeStatus = StringToStatus(anime.MyStatus),
                         //Comments = null,
@@ -128,7 +125,7 @@ namespace MALRater
                 
                 if (0 != anime.MyScore)
                 {
-                    AniList.UpdateAnime(anime.SeriesAnimedbId, new AnimeValues
+                    AnimeListMethods.UpdateAnime(anime.SeriesAnimedbId, new AnimeValues
                     {
                         AnimeStatus = StringToStatus(anime.MyStatus),
                         //Comments = null,
@@ -156,7 +153,7 @@ namespace MALRater
 
         void FindUnrated()
         {
-            UnRated = new Stack<MalAnime>(MALList.Anime
+            UnRated = new Stack<MalAnime>(MyAnimeList.Anime
                 .Where(a =>
                 {
                     var status = StringToStatus(a.MyStatus);

@@ -56,7 +56,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimeWrapper.cs" />
     <Compile Include="Data\Anime.cs" />
     <Compile Include="Data\MALAnime.cs" />
     <Compile Include="Data\MALInfo.cs" />
